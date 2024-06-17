@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Progressbar Widget</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: transparent; /* Hintergrund auf transparent setzen */
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .widget {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      width: 300px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      margin: auto; /* Widget in der Mitte zentrieren */
+    }
+    .widget h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    .widget input {
+      margin: 10px 0;
+      padding: 5px;
+      width: 80px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      text-align: center;
+      font-size: 16px;
+    }
+    .progress-container {
+      margin-top: 20px;
+      background-color: #eee;
+      border-radius: 5px;
+      overflow: hidden;
+      position: relative;
+      height: 30px;
+      display: flex;
+      align-items: center;
+    }
+    #progressBar {
+      height: 100%;
+      background-color: #76c7c0;
+      width: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      transition: width 0.3s ease;
+      font-size: 16px;
+    }
+    .label-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .label-container span, .label-container input {
+      background-color: #333;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    .label-container input {
+      background-color: #fff;
+      color: #333;
+      border: 1px solid #ccc;
+      width: 80px;
+      padding: 5px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="widget">
+    <h1>Jahresumsatz 2024</h1>
+    <div class="label-container">
+      <input type="text" id="leftNumber" placeholder="Enter amount" oninput="calculateProgress()">
+      <span>10,000€</span>
+    </div>
+    <div class="progress-container">
+      <div id="progressBar"><span id="progressPercentage"></span></div>
+    </div>
+  </div>
+  <script>
+    function calculateProgress() {
+      var inputValue = document.getElementById('leftNumber').value.replace(',', '.');
+      var leftNumber = parseFloat(inputValue);
+      var rightNumber = 10000; // Fixed value of 10,000€
+      if (!isNaN(leftNumber) && leftNumber >= 0) {
+        var percentage = (leftNumber / rightNumber) * 100;
+        document.getElementById('progressBar').style.width = percentage + '%';
+        document.getElementById('progressPercentage').innerText = percentage.toFixed(2) + '%';
+      } else {
+        document.getElementById('progressBar').style.width = '0%';
+        document.getElementById('progressPercentage').innerText = '';
+      }
+    }
+  </script>
+</body>
+</html>
+
