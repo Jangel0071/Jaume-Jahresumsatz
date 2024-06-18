@@ -87,7 +87,7 @@
   <div class="widget">
     <h1>Jahresumsatz 2024</h1>
     <div class="label-container">
-      <input type="text" id="leftNumber" placeholder="Enter amount" oninput="calculateProgress()">
+      <input type="text" id="leftNumber" placeholder="Enter amount" oninput="calculateProgress()" value="">
       <span>10,000€</span>
     </div>
     <div class="progress-container">
@@ -103,22 +103,21 @@
         var percentage = (leftNumber / rightNumber) * 100;
         document.getElementById('progressBar').style.width = percentage + '%';
         document.getElementById('progressPercentage').innerText = percentage.toFixed(2) + '%';
-        localStorage.setItem('savedAmount', inputValue); // Speichere den Betrag im Local Storage
+        localStorage.setItem('savedAmount', leftNumber); // Save to localStorage
       } else {
         document.getElementById('progressBar').style.width = '0%';
         document.getElementById('progressPercentage').innerText = '';
       }
     }
 
-    function loadSavedAmount() {
+    // Load the saved value from localStorage on page load
+    window.onload = function() {
       var savedAmount = localStorage.getItem('savedAmount');
       if (savedAmount !== null) {
         document.getElementById('leftNumber').value = savedAmount;
         calculateProgress();
       }
     }
-
-    window.onload = loadSavedAmount;
   </script>
 </body>
 </html>
